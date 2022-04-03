@@ -17,7 +17,7 @@ namespace to.Lib.ProceduralMesh
 		private void MenuPlane() => MenuGenerateMesh<PlaneMesh>();
 		private void MenuDome() => MenuGenerateMesh<DomeMesh>();
 		private void MenuCylinder() => MenuGenerateMesh<CylinderMesh>();
-		private void MenuSphere() => MenuGenerateMesh<SphereMesh>();
+		private void MenuSphere() => MenuGenerateMesh<IcoSphereMesh>();
 
 		[SerializeReference]
 		[ContextMenuItem(nameof(MenuQuad), nameof(MenuQuad))]
