@@ -25,6 +25,23 @@ namespace to.Lib.ProceduralMesh
 			new VertexAttributeDescriptor(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 2),
 		};
 
+		static public Mesh SetupMesh(in NativeArray<VertexLayout> verts, List<int> ilist)
+		{
+			var mesh = new Mesh();
+			mesh.SetVertexBufferParams(verts.Length, MeshUtil.VertexLayoutDescriptors);
+			mesh.SetVertexBufferData(verts, 0, 0, verts.Length);
+
+			mesh.SetIndexBufferParams(ilist.Count, IndexFormat.UInt32);
+			mesh.SetIndexBufferData(ilist, 0, 0, ilist.Count, MeshUpdateFlags.Default);
+			mesh.subMeshCount = 1;
+			mesh.SetSubMesh(0, new SubMeshDescriptor(0, ilist.Count, MeshTopology.Triangles));
+
+			mesh.RecalculateNormals();
+			mesh.RecalculateBounds();
+
+			return mesh;
+		}
+
 		static public Mesh GenerateDomeMesh(Vector3 size, int split_r, int split_h, bool reverse)
 		{
 			var mesh = new Mesh();

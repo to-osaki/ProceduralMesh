@@ -54,19 +54,7 @@ namespace to.Lib.ProceduralMesh
 				};
 			}
 
-			var mesh = new Mesh();
-			mesh.SetVertexBufferParams(verts.Length, MeshUtil.VertexLayoutDescriptors);
-			mesh.SetVertexBufferData(verts, 0, 0, verts.Length);
-
-			mesh.SetIndexBufferParams(ilist.Count, IndexFormat.UInt32);
-			mesh.SetIndexBufferData(ilist, 0, 0, ilist.Count, MeshUpdateFlags.Default);
-			mesh.subMeshCount = 1;
-			mesh.SetSubMesh(0, new SubMeshDescriptor(0, ilist.Count, MeshTopology.Triangles));
-
-			mesh.RecalculateNormals();
-			mesh.RecalculateBounds();
-
-			return mesh;
+			return MeshUtil.SetupMesh(verts, ilist);
 		}
 
 		private void CalcVertices(List<Vector3> vlist, List<int> ilist)
