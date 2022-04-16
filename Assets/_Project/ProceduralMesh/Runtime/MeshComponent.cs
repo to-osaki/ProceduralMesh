@@ -18,7 +18,8 @@ namespace to.Lib.ProceduralMesh
 		private void MenuDome() => MenuGenerateMesh<DomeMesh>();
 		private void MenuCylinder() => MenuGenerateMesh<CylinderMesh>();
 		private void MenuSphere() => MenuGenerateMesh<IcoSphereMesh>();
-		private void MenuConvexHullXY() => MenuGenerateMesh<ConvexHullXYMesh>();
+		private void MenuConvexHullXY() => MenuGenerateMesh<ConvexHull2DMesh>();
+		private void MenuTorus() => MenuGenerateMesh<TorusMesh>();
 
 		[SerializeReference]
 		[ContextMenuItem(nameof(MenuQuad), nameof(MenuQuad))]
@@ -27,6 +28,7 @@ namespace to.Lib.ProceduralMesh
 		[ContextMenuItem(nameof(MenuCylinder), nameof(MenuCylinder))]
 		[ContextMenuItem(nameof(MenuSphere), nameof(MenuSphere))]
 		[ContextMenuItem(nameof(MenuConvexHullXY), nameof(MenuConvexHullXY))]
+		[ContextMenuItem(nameof(MenuTorus), nameof(MenuTorus))]
 		private IMeshGenerator meshGenerator_;
 
 		protected MeshFilter filter_;
