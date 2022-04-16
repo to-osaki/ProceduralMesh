@@ -31,6 +31,14 @@ namespace to.Lib.ProceduralMesh
 		[ContextMenuItem(nameof(MenuTorus), nameof(MenuTorus))]
 		private IMeshGenerator meshGenerator_;
 
+#if UNITY_EDITOR
+		[ContextMenu(nameof(CreateMeshAsset))]
+		private void CreateMeshAsset()
+		{
+			UnityEditor.ProjectWindowUtil.CreateAsset(filter_.sharedMesh, $"{this.name}.mesh");
+		}
+#endif
+
 		protected MeshFilter filter_;
 		protected MeshRenderer renderer_;
 
