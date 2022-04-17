@@ -20,6 +20,7 @@ namespace to.Lib.ProceduralMesh
 		private void MenuSphere() => MenuGenerateMesh<IcoSphereMesh>();
 		private void MenuConvexHullXY() => MenuGenerateMesh<ConvexHull2DMesh>();
 		private void MenuTorus() => MenuGenerateMesh<TorusMesh>();
+		private void MenuPDS2D() => MenuGenerateMesh<PoissonDiskSamplingPoints>();
 
 		[SerializeReference]
 		[ContextMenuItem(nameof(MenuQuad), nameof(MenuQuad))]
@@ -29,6 +30,7 @@ namespace to.Lib.ProceduralMesh
 		[ContextMenuItem(nameof(MenuSphere), nameof(MenuSphere))]
 		[ContextMenuItem(nameof(MenuConvexHullXY), nameof(MenuConvexHullXY))]
 		[ContextMenuItem(nameof(MenuTorus), nameof(MenuTorus))]
+		[ContextMenuItem(nameof(MenuPDS2D), nameof(MenuPDS2D))]
 		private IMeshGenerator meshGenerator_;
 
 #if UNITY_EDITOR

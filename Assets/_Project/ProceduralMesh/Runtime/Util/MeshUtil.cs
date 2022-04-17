@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
-using Complex = System.Numerics.Complex;
 
 namespace to.Lib.ProceduralMesh
 {
