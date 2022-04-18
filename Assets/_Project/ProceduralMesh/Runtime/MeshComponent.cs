@@ -8,29 +8,7 @@ namespace to.Lib.ProceduralMesh
 	[ExecuteInEditMode]
 	public class MeshComponent : MonoBehaviour
 	{
-		private void MenuGenerateMesh<T>() where T : IMeshGenerator, new()
-		{
-			meshGenerator_ = new T();
-			this.BuildMesh();
-		}
-		private void MenuQuad() => MenuGenerateMesh<QuadMesh>();
-		private void MenuPlane() => MenuGenerateMesh<PlaneMesh>();
-		private void MenuDome() => MenuGenerateMesh<DomeMesh>();
-		private void MenuCylinder() => MenuGenerateMesh<CylinderMesh>();
-		private void MenuSphere() => MenuGenerateMesh<IcoSphereMesh>();
-		private void MenuConvexHullXY() => MenuGenerateMesh<ConvexHull2DMesh>();
-		private void MenuTorus() => MenuGenerateMesh<TorusMesh>();
-		private void MenuPDS2D() => MenuGenerateMesh<PoissonDiskSamplingPoints>();
-
 		[SerializeReference]
-		[ContextMenuItem(nameof(MenuQuad), nameof(MenuQuad))]
-		[ContextMenuItem(nameof(MenuPlane), nameof(MenuPlane))]
-		[ContextMenuItem(nameof(MenuDome), nameof(MenuDome))]
-		[ContextMenuItem(nameof(MenuCylinder), nameof(MenuCylinder))]
-		[ContextMenuItem(nameof(MenuSphere), nameof(MenuSphere))]
-		[ContextMenuItem(nameof(MenuConvexHullXY), nameof(MenuConvexHullXY))]
-		[ContextMenuItem(nameof(MenuTorus), nameof(MenuTorus))]
-		[ContextMenuItem(nameof(MenuPDS2D), nameof(MenuPDS2D))]
 		private IMeshGenerator meshGenerator_;
 
 #if UNITY_EDITOR
@@ -55,6 +33,12 @@ namespace to.Lib.ProceduralMesh
 		private void OnEnable()
 		{
 			BuildMesh();
+		}
+
+		public void AssignMeshGenerator(IMeshGenerator gen)
+		{
+			meshGenerator_ = gen;
+			this.BuildMesh();
 		}
 
 		public void BuildMesh()
