@@ -11,7 +11,7 @@ namespace to.Lib.ProceduralMesh
 		[SerializeField]
 		public float radius = 1f;
 		[SerializeField, Range(0, 4)]
-		public int LOD = 0;
+		public int LOD = 1;
 
 		private struct Edge
 		{
@@ -39,6 +39,8 @@ namespace to.Lib.ProceduralMesh
 			}
 		}
 
+		// https://suzulang.com/cpp-code-ico-q-1/
+		// http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html
 		public Mesh Generate()
 		{
 			var vlist = new List<Vector3>();
@@ -48,9 +50,13 @@ namespace to.Lib.ProceduralMesh
 			var verts = new NativeArray<MeshUtil.VertexLayout>(vlist.Count, Allocator.Temp);
 			for (int i = 0; i < vlist.Count; ++i)
 			{
+				// Ico sphere is inscribed
+				var nv = vlist[i].normalized;
+				float angle = Vector2.Angle(Vector2.one, new Vector2(nv.x, nv.z)) / 180f;
 				verts[i] = new MeshUtil.VertexLayout
 				{
-					pos = vlist[i].normalized * radius,
+					pos = nv * radius,
+					uv0 = new Vector2((angle + 1f) * 0.5f, (nv.y + 1f) * 0.5f),
 				};
 			}
 

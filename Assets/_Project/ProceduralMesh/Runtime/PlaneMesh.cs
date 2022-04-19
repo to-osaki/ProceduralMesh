@@ -9,13 +9,13 @@ namespace to.Lib.ProceduralMesh
 	public sealed class PlaneMesh : IMeshGenerator
 	{
 		[SerializeField]
-		public Vector2Int size = Vector2Int.one;
+		public Vector2Int size = new Vector2Int(2, 2);
 		[SerializeField]
-		public Vector2Int segments = Vector2Int.one;
+		public Vector2Int segments = new Vector2Int(10, 10);
 		[SerializeField]
-		public float noiseHeight = 0f;
+		public float noiseHeight = 0.5f;
 		[SerializeField]
-		public Vector2 uvScale = Vector2.one;
+		public Vector2 uvScale = new Vector2Int(2, 2);
 		[SerializeField]
 		public Vector2 uvOffset = Vector2.zero;
 

@@ -38,6 +38,7 @@ namespace to.Lib.ProceduralMesh
 			verts[0] = new MeshUtil.VertexLayout
 			{
 				pos = Vector3.up * size.y,
+				uv0 = Vector2.one * 0.5f,
 			};
 
 			float rad_r = 2 * Mathf.PI / split_r;
@@ -52,12 +53,15 @@ namespace to.Lib.ProceduralMesh
 				for (int i = 0; i < split_r; ++i)
 				{
 					int index = (1 + floor * split_r) + i;
+					float real = (float)point.Real;
+					float imag = (float)point.Imaginary;
 					verts[index] = new MeshUtil.VertexLayout
 					{
 						pos = new Vector3(
-							(float)point.Real * cos * size.x,
+							real * cos * size.x,
 							sin * size.y,
-							(float)point.Imaginary * cos * size.z),
+							imag * cos * size.z),
+						uv0 = new Vector2((real * cos + 1f) * 0.5f, (imag * cos + 1f) * 0.5f),
 					};
 					point *= rotate;
 				}

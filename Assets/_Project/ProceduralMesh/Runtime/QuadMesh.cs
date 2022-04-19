@@ -39,22 +39,22 @@ namespace to.Lib.ProceduralMesh
 			verts[0] = new VertexLayout
 			{
 				pos = new Vector3(-size.x, size.y, 0f),
-				uv0 = new Vector2(0f, 0f)
+				uv0 = new Vector2(0f, 1f)
 			};
 			verts[1] = new VertexLayout
 			{
 				pos = new Vector3(size.x, size.y, 0f),
-				uv0 = new Vector2(1f, 0f)
+				uv0 = new Vector2(1f, 1f)
 			};
 			verts[2] = new VertexLayout
 			{
 				pos = new Vector3(size.x, -size.y, 0f),
-				uv0 = new Vector2(1f, 1f)
+				uv0 = new Vector2(1f, 0f)
 			};
 			verts[3] = new VertexLayout
 			{
 				pos = new Vector3(-size.x, -size.y, 0f),
-				uv0 = new Vector2(0f, 1f)
+				uv0 = new Vector2(0f, 0f)
 			};
 
 			mesh.SetVertexBufferData(verts, 0, 0, vc);

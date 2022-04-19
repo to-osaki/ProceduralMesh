@@ -12,11 +12,11 @@ namespace to.Lib.ProceduralMesh
 		[SerializeField]
 		public float radius = 1f;
 		[SerializeField]
-		public float width = 0.25f;
+		public float width = 0.5f;
 		[SerializeField, Range(3, 20)]
 		public int majorSegments = 10;
 		[SerializeField, Range(3, 20)]
-		public int minorSegments = 6;
+		public int minorSegments = 8;
 
 		public Mesh Generate()
 		{
@@ -49,7 +49,8 @@ namespace to.Lib.ProceduralMesh
 					float dist = radius + circle[j].x;
 					verts[i * minorSegments + j] = new MeshUtil.VertexLayout
 					{
-						pos = new Vector3(cos * dist, circle[j].y, sin * dist)
+						pos = new Vector3(cos * dist, circle[j].y, sin * dist),
+						uv0 = new Vector2((sin + 1f) * 0.5f, j / (minorSegments / 2f)),
 					};
 				}
 			}

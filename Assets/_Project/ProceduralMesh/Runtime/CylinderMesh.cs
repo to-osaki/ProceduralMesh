@@ -72,13 +72,17 @@ namespace to.Lib.ProceduralMesh
 			verts[vertIdx] = new VertexLayout
 			{
 				pos = new Vector3(0f, y, 0f),
+				uv0 = Vector2.one * 0.5f,
 			};
-			Complex point = Complex.One * radius;
+			Complex point = Complex.One;
 			for (int i = 0; i < segments; ++i)
 			{
+				float real = (float)point.Real;
+				float imag = (float)point.Imaginary;
 				verts[i + (vertIdx + 1)] = new VertexLayout
 				{
-					pos = new Vector3((float)point.Real, y, (float)point.Imaginary),
+					pos = new Vector3(real * radius, y, imag * radius),
+					uv0 = new Vector2((real + 1f) * 0.5f, (imag + 1f) * 0.5f),
 				};
 				point *= rotate;
 
@@ -96,18 +100,22 @@ namespace to.Lib.ProceduralMesh
 			float r = (Mathf.PI * 2 / segments);
 			var rotate = new Complex(Mathf.Cos(r), Mathf.Sin(r));
 
-			Complex point = Complex.One * radius;
+			Complex point = Complex.One;
 			for (int i = 0; i < segments; ++i)
 			{
 				int v0 = vertOffset + (i * 2 + 0);
 				int v1 = vertOffset + (i * 2 + 1);
+				float real = (float)point.Real;
+				float imag = (float)point.Imaginary;
 				verts[v0] = new VertexLayout
 				{
-					pos = new Vector3((float)point.Real, height / 2f, (float)point.Imaginary),
+					pos = new Vector3(real * radius, height / 2f, imag * radius),
+					uv0 = new Vector2((imag + 1f) * 0.5f, 1f),
 				};
 				verts[v1] = new VertexLayout
 				{
-					pos = new Vector3((float)point.Real, -height / 2f, (float)point.Imaginary),
+					pos = new Vector3(real * radius, -height / 2f, imag * radius),
+					uv0 = new Vector2((imag + 1f) * 0.5f, 0f),
 				};
 				point *= rotate;
 			}
