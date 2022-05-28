@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace to.ProceduralMesh
 {
@@ -16,7 +15,7 @@ namespace to.ProceduralMesh
 		private struct Edge
 		{
 			public int i0, i1;
-			public System.UInt64 EdgeKey => ((uint)i0 << 16) + (uint)i1;
+			public ulong EdgeKey => ((uint)i0 << 16) + (uint)i1;
 			public Edge(int i0, int i1)
 			{
 				(this.i0, this.i1) = i0 < i1 ? (i0, i1) : (i1, i0);
@@ -150,7 +149,7 @@ namespace to.ProceduralMesh
 			});
 
 			int totalEdges = totalFaces + totalVertices - 2;
-			var viByEdge = new Dictionary<System.UInt64, int>(totalEdges);
+			var viByEdge = new Dictionary<ulong, int>(totalEdges);
 			for (int lod = 0; lod < LOD; ++lod)
 			{
 				Face[] populatedFaces = new Face[faces.Length * 4];
@@ -163,7 +162,7 @@ namespace to.ProceduralMesh
 					for (int ei = 0; ei < edges.Length; ei++)
 					{
 						Edge edge = edges[ei];
-						System.UInt64 edgeKey = edge.EdgeKey;
+						ulong edgeKey = edge.EdgeKey;
 						int mi = -1;
 						if (!viByEdge.TryGetValue(edgeKey, out mi))
 						{

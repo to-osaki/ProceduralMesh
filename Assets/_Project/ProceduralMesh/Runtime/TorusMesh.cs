@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
-using Complex = System.Numerics.Complex;
 
 namespace to.ProceduralMesh
 {
@@ -28,9 +26,7 @@ namespace to.ProceduralMesh
 
 			float majorDelta = Mathf.PI * 2 / majorSegments;
 			float minorDelta = Mathf.PI * 2 / minorSegments;
-			Complex majorRotate = new Complex(Mathf.Cos(majorDelta), Mathf.Sin(majorDelta));
-			Complex minorRotate = new Complex(Mathf.Cos(minorDelta), Mathf.Sin(minorDelta));
-
+			
 			// circle
 			Vector2[] circle = new Vector2[minorSegments];
 			for (int i = 0; i < minorSegments; ++i)

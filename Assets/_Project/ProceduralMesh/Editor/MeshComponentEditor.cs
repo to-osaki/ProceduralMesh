@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	[CustomEditor(typeof(MeshComponent), editorForChildClasses: true)]
 	public class MeshComponentEditor : Editor
