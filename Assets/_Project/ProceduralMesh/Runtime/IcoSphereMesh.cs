@@ -4,7 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	public class IcoSphereMesh : IMeshGenerator
 	{
@@ -60,7 +60,7 @@ namespace to.Lib.ProceduralMesh
 				};
 			}
 
-			return MeshUtil.SetupMesh(verts, ilist);
+			return MeshUtil.SetupTriangles(verts, ilist);
 		}
 
 		private void CalcVertices(List<Vector3> vlist, List<int> ilist)
@@ -121,8 +121,14 @@ namespace to.Lib.ProceduralMesh
 			vlist.Clear();
 			ilist.Clear();
 
-			// three planes of 1 : (1+��5)/2
-			float e = (1 + Mathf.Sqrt(5f)) / 2;
+			// three planes of 1 : (1+√5)/2
+			// https://gihyo.jp/book/2021/978-4-297-12383-3
+			// > ３つの長方形を中心で交差させ、頂点を結び・・・二十面体となります。
+			// > どんな長方形でも正三角形はでき、もう１つの二等辺三角形は長方形の長さに依存します。
+			// (各長方形の長辺を結ぶ正三角形と、短辺の２点から成る二等辺三角形)
+			// > 短辺の長さを１とし、長辺の長さをｘと置く・・・ＡＢの長さ＝１を満たすｘを求めてみましょう。
+			// > ABの長さ＝√(1 / 2)^2 + (x-1 / 2)^2 + (x / 2)^2 = 1 ⇔ x^2 - x - 1 = 0
+			float phi = (1 + Mathf.Sqrt(5f)) / 2;
 
 			int totalVertices = 12;
 			int totalFaces = 20;
@@ -138,9 +144,9 @@ namespace to.Lib.ProceduralMesh
 			vlist.Capacity = totalVertices;
 			vlist.AddRange(new Vector3[]
 			{
-				new Vector3(e, 0, -1), new Vector3(-e, 0, -1),new Vector3(e, 0, 1),new Vector3(-e, 0, 1),
-				new Vector3(-1, e, 0), new Vector3(-1, -e, 0), new Vector3(1, e, 0), new Vector3(1, -e, 0),
-				new Vector3(0, -1, e), new Vector3(0, -1, -e),new Vector3(0, 1, e),new Vector3(0, 1, -e),
+				new Vector3(phi, 0, -1), new Vector3(-phi, 0, -1),new Vector3(phi, 0, 1),new Vector3(-phi, 0, 1),
+				new Vector3(-1, phi, 0), new Vector3(-1, -phi, 0), new Vector3(1, phi, 0), new Vector3(1, -phi, 0),
+				new Vector3(0, -1, phi), new Vector3(0, -1, -phi),new Vector3(0, 1, phi),new Vector3(0, 1, -phi),
 			});
 
 			int totalEdges = totalFaces + totalVertices - 2;

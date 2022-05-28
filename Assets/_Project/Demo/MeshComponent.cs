@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	[RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer))]
 	[ExecuteInEditMode]

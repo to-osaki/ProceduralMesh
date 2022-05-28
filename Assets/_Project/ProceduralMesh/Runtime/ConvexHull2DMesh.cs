@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	public class ConvexHull2DMesh : IMeshGenerator
 	{
@@ -33,7 +33,7 @@ namespace to.Lib.ProceduralMesh
 				ilist.Add(i + 2);
 			}
 
-			return MeshUtil.SetupMesh(verts, ilist);
+			return MeshUtil.SetupTriangles(verts, ilist);
 		}
 
 		static private List<Vector2> GetHullPoints(List<Vector2> points)

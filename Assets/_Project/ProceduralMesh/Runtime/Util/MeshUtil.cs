@@ -4,7 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	static public class MeshUtil
 	{
@@ -24,7 +24,7 @@ namespace to.Lib.ProceduralMesh
 			new VertexAttributeDescriptor(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 2),
 		};
 
-		static public Mesh SetupMesh(in NativeArray<VertexLayout> verts, List<int> ilist)
+		static public Mesh SetupTriangles(in NativeArray<VertexLayout> verts, List<int> ilist)
 		{
 			var mesh = new Mesh();
 			mesh.SetVertexBufferParams(verts.Length, MeshUtil.VertexLayoutDescriptors);
@@ -41,7 +41,24 @@ namespace to.Lib.ProceduralMesh
 			return mesh;
 		}
 
-		static public Mesh SetupPoint(in NativeArray<VertexLayout> verts)
+		static public Mesh SetupTriangles(in NativeArray<VertexLayout> verts, int[] indices)
+		{
+			var mesh = new Mesh();
+			mesh.SetVertexBufferParams(verts.Length, MeshUtil.VertexLayoutDescriptors);
+			mesh.SetVertexBufferData(verts, 0, 0, verts.Length);
+
+			mesh.SetIndexBufferParams(indices.Length, IndexFormat.UInt32);
+			mesh.SetIndexBufferData(indices, 0, 0, indices.Length, MeshUpdateFlags.Default);
+			mesh.subMeshCount = 1;
+			mesh.SetSubMesh(0, new SubMeshDescriptor(0, indices.Length, MeshTopology.Triangles));
+
+			mesh.RecalculateNormals();
+			mesh.RecalculateBounds();
+
+			return mesh;
+		}
+
+		static public Mesh SetupPoints(in NativeArray<VertexLayout> verts)
 		{
 			int length = Mathf.Min(verts.Length, s_numbers.Length);
 
@@ -63,7 +80,7 @@ namespace to.Lib.ProceduralMesh
 		static private int[] s_numbers;
 		static MeshUtil()
 		{
-			s_numbers = new int[65535];
+			s_numbers = new int[65536];
 			for (int i = 0; i < s_numbers.Length; ++i)
 			{
 				s_numbers[i] = i;

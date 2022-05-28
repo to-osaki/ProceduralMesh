@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Complex = System.Numerics.Complex;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	public class TorusMesh : IMeshGenerator
 	{
@@ -75,7 +75,7 @@ namespace to.Lib.ProceduralMesh
 				}
 			}
 
-			return MeshUtil.SetupMesh(verts, ilist);
+			return MeshUtil.SetupTriangles(verts, ilist);
 		}
 	}
 }

@@ -4,7 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	public sealed class QuadMesh : IMeshGenerator
 	{

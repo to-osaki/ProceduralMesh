@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-namespace to.Lib.ProceduralMesh
+namespace to.ProceduralMesh
 {
 	public class PoissonDiskSamplingPoints : IMeshGenerator
 	{
@@ -35,7 +35,7 @@ namespace to.Lib.ProceduralMesh
 					pos = points[i]
 				};
 			}
-			return MeshUtil.SetupPoint(verts);
+			return MeshUtil.SetupPoints(verts);
 		}
 
 		private List<Vector2> GetSamples()
