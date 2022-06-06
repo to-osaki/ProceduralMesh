@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace to.ProceduralMesh
+namespace to.Demo
 {
+	using to.ProceduralMesh;
+
 	[CustomEditor(typeof(MeshComponent), editorForChildClasses: true)]
 	public class MeshComponentEditor : Editor
 	{
