@@ -6,6 +6,12 @@ namespace to.ProceduralMesh
 {
 	static public class Vector2DUtil
 	{
+		static public void Deconstruct(this Vector2 self, out float x, out float y)
+		{
+			x = self.x;
+			y = self.y;
+		}
+
 		public struct Line
 		{
 			public Line(Vector2 start, Vector2 end)
@@ -40,6 +46,11 @@ namespace to.ProceduralMesh
 		static public float Dot(Vector2 v1, Vector2 v2)
 		{
 			return Vector2.Dot(v1, v2);
+		}
+
+		static public Vector2 CosSin(float rad)
+		{
+			return new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 		}
 
 		/// <summary>
