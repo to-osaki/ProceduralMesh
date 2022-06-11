@@ -58,6 +58,23 @@ namespace to.ProceduralMesh
 			return mesh;
 		}
 
+		static public Mesh SetupTriangles(in NativeArray<VertexLayout> verts, in NativeArray<int> indices)
+		{
+			var mesh = new Mesh();
+			mesh.SetVertexBufferParams(verts.Length, MeshUtil.VertexLayoutDescriptors);
+			mesh.SetVertexBufferData(verts, 0, 0, verts.Length);
+
+			mesh.SetIndexBufferParams(indices.Length, IndexFormat.UInt32);
+			mesh.SetIndexBufferData(indices, 0, 0, indices.Length, MeshUpdateFlags.Default);
+			mesh.subMeshCount = 1;
+			mesh.SetSubMesh(0, new SubMeshDescriptor(0, indices.Length, MeshTopology.Triangles));
+
+			mesh.RecalculateNormals();
+			mesh.RecalculateBounds();
+
+			return mesh;
+		}
+
 		static public Mesh SetupPoints(in NativeArray<VertexLayout> verts)
 		{
 			int length = Mathf.Min(verts.Length, s_numbers.Length);

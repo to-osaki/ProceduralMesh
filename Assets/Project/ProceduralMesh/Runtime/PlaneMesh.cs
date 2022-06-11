@@ -19,30 +19,12 @@ namespace to.ProceduralMesh
 		[SerializeField]
 		public Vector2 uvOffset = Vector2.zero;
 
-		[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-		struct VertexLayout
-		{
-			public Vector3 pos;
-			public Vector3 normal;
-			public Vector2 uv0;
-		}
-
 		Mesh IMeshGenerator.Generate()
 		{
-			// set vertex attributes
-			var layout = new[]
-			{
-				new VertexAttributeDescriptor(VertexAttribute.Position, VertexAttributeFormat.Float32, 3),
-				new VertexAttributeDescriptor(VertexAttribute.Normal, VertexAttributeFormat.Float32, 3),
-				new VertexAttributeDescriptor(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 2),
-			};
-
 			int vc = 4 + segments.x * 2 + segments.y * 2 + segments.x * segments.y;
 			int ic = (segments.x + 1) * (segments.y + 1) * 6;
-			var verts = new NativeArray<VertexLayout>(vc, Allocator.Temp);
+			var verts = new NativeArray<MeshUtil.VertexLayout>(vc, Allocator.Temp);
 			var indices = new NativeArray<int>(ic, Allocator.Temp);
-
-			var mesh = new Mesh();
 
 			float winv = segments.x <= 0 ? 0f : 1f / segments.x;
 			float hinv = segments.y <= 0 ? 0f : 1f / segments.y;
@@ -55,15 +37,13 @@ namespace to.ProceduralMesh
 
 					int index = y * (segments.x + 1) + x;
 					float height = noiseHeight * Mathf.PerlinNoise(rx * uvScale.x + uvOffset.x, ry * uvScale.y + uvOffset.y);
-					verts[index] = new VertexLayout
+					verts[index] = new MeshUtil.VertexLayout
 					{
 						pos = new Vector3((rx - 0.5f) * size.x, height, (0.5f - ry) * size.y),
 						uv0 = new Vector2(rx, ry),
 					};
 				}
 			}
-			mesh.SetVertexBufferParams(vc, layout);
-			mesh.SetVertexBufferData(verts, 0, 0, vc);
 
 			for (int y = 0; y < segments.y; ++y)
 			{
@@ -83,14 +63,8 @@ namespace to.ProceduralMesh
 					indices[index * 6 + 5] = v0;
 				}
 			}
-			mesh.SetIndexBufferParams(ic, IndexFormat.UInt32);
-			mesh.SetIndexBufferData(indices, 0, 0, ic, MeshUpdateFlags.Default);
-			mesh.subMeshCount = 1;
-			mesh.SetSubMesh(0, new SubMeshDescriptor(0, ic, MeshTopology.Triangles));
 
-			mesh.RecalculateNormals();
-			mesh.RecalculateBounds();
-
+			var mesh = MeshUtil.SetupTriangles(verts, indices);
 			return mesh;
 		}
 	}
