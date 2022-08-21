@@ -36,6 +36,11 @@ namespace to.Demo
 			BuildMesh();
 		}
 
+		private void OnDisable()
+		{
+			DeleteMesh();
+		}
+
 		public void AssignMeshGenerator(IMeshGenerator gen)
 		{
 			meshGenerator_ = gen;
@@ -43,6 +48,15 @@ namespace to.Demo
 		}
 
 		public void BuildMesh()
+		{
+			DeleteMesh();
+			if (filter_ != null)
+			{
+				filter_.sharedMesh = meshGenerator_?.Generate();
+			}
+		}
+
+		public void DeleteMesh()
 		{
 			if (filter_ != null)
 			{
@@ -56,9 +70,8 @@ namespace to.Demo
 					{
 						DestroyImmediate(filter_.sharedMesh);
 					}
+					filter_.sharedMesh = null;
 				}
-
-				filter_.sharedMesh = meshGenerator_?.Generate();
 			}
 		}
 	}
